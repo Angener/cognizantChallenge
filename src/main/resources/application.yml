@@ -1,0 +1,21 @@
+competition-game:
+  name: competitionGame
+  version: 1.0
+  log:
+    file: logs/competitionGame
+
+server:
+  port: 8080
+  servlet:
+    context-path: /service/competitionGame
+
+spring:
+  profiles:
+    active: dev
+
+logging:
+  level:
+    org:
+      springframework:
+        boot:
+          autoconfigure: INFO

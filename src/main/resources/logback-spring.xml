@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <property name="PATTERN" value="%d{yyyy-MM-dd HH:mm:ss} - %-5level - [${hostname}] - [%thread] - %logger{35} - %msg%n"/>
+    <timestamp key="timestamp" datePattern="yyyy-MM-dd HH:mm:ss"/>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder><pattern>${PATTERN}</pattern></encoder>
+    </appender>
+
+    <springProfile name="prod">
+        <configuration>
+            <springProperty name="LOG_FILE" source="competitionGame.log.file"/>
+
+            <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <prudent>true</prudent>
+                <encoder><pattern>${PATTERN}</pattern></encoder>
+                <file>${LOG_FILE}</file>
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                    <fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.log</fileNamePattern>
+                    <maxHistory>30</maxHistory>
+                </rollingPolicy>
+            </appender>
+
+            <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+                <appender-ref ref="FILE"/>
+            </appender>
+
+            <root level="INFO">
+                <appender-ref ref="stdout"/>
+                <appender-ref ref="ASYNC"/>
+            </root>
+        </configuration>
+    </springProfile>
+
+    <springProfile name="dev">
+        <root level="INFO"><appender-ref ref="stdout"/></root>
+    </springProfile>
+</configuration>

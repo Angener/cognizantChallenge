@@ -1,0 +1,28 @@
+spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2
+  jpa:
+    databasePlatform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+    open-in-view: false
+    hibernate:
+      ddl-auto: create
+
+  datasource:
+    url: jdbc:h2:mem:test
+    username: eremenko
+    password:
+    driverClassName: org.h2.Driver
+
+jdoodle:
+  clientId: 1a6a98b4eaf09e89ab9a2d1a817dc0a3
+  clientSecret: f83da86e45660662e71d5d72a339a2b4c65297028afc5b03b4bd3f98b23d8258
+  language: java
+  version: 3
+  rest:
+    compiler-api-endpoint: https://api.jdoodle.com/v1/execute
+
+jwt:
+  secret: awda909vjdhxvnzkj@!
